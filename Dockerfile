@@ -14,8 +14,10 @@ RUN apt-get update \
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf \
  && sed -i 's/worker_processes  1/worker_processes  auto/' /etc/nginx/nginx.conf
 
-# Install Forego
-ADD https://bin.equinox.io/c/ekMN3bCZFUn/forego-stable-linux-arm.tgz /usr/local/bin/forego
+# Install forego
+ADD https://bin.equinox.io/c/ekMN3bCZFUn/forego-stable-linux-arm.tgz /tmp/forego.tgz
+RUN tar -xzvf /tmp/forego.tgz -C /usr/local/bin/
+RUN stat /usr/local/bin/forego
 RUN chmod u+x /usr/local/bin/forego
 
 ENV DOCKER_GEN_VERSION 0.7.4
